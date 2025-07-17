@@ -31,7 +31,7 @@ EXPOSE 3000
 # get the pre-built binary from builder so that we don't have to re-build every time
 COPY --from=1 --chown=nonroot:nonroot /app/openleadr-vtn/openleadr-vtn /home/nonroot/openleadr-vtn
 RUN chmod 777 /home/nonroot/openleadr-vtn
-
+RUN chmod +x /home/nonroot/openleadr-vtn
 USER $user
 
 WORKDIR /home/nonroot
