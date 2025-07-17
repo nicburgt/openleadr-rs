@@ -15,6 +15,8 @@ RUN cp /app/target/release/openleadr-vtn /app/openleadr-vtn
 
 FROM alpine:latest AS final
 
+RUN apk add --no-cache openssl-libs-static curl
+
 ARG user=nonroot
 ARG group=nonroot
 ARG uid=2000
@@ -25,7 +27,6 @@ RUN addgroup -g ${gid} ${group} && \
 WORKDIR /dist
 
 COPY --from=builder --chown=nonroot:nonroot /app/openleadr-vtn/openleadr-vtn /dist/openleadr-vtn-dist
-
 RUN chmod 777 /dist/openleadr-vtn-dist
 
 USER $user
