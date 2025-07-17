@@ -34,4 +34,6 @@ RUN chmod 777 /home/nonroot/openleadr-vtn
 
 USER $user
 
-ENTRYPOINT ["/home/nonroot/openleadr-vtn"]
+WORKDIR /home/nonroot
+
+ENTRYPOINT ["./openleadr-vtn"]
