@@ -15,23 +15,21 @@ RUN cp /app/target/release/openleadr-vtn /app/openleadr-vtn-dist
 
 FROM alpine:latest AS final
 
+ARG user=nonroot
+ARG group=nonroot
+ARG uid=2000
+ARG gid=2000
+RUN addgroup -g ${gid} ${group} && \
+    adduser -u ${uid} -G ${group} -s /bin/sh -D ${user}
+
 WORKDIR /dist
 
-COPY --from=builder /app/openleadr-vtn-dist /dist/openleadr-vtn-dist
+COPY --from=builder --chown=nonroot:nonroot /app/openleadr-vtn-dist /dist/openleadr-vtn-dist
 
 RUN chmod 777 /dist/openleadr-vtn-dist
+
+USER $user
 
 EXPOSE 3000
 
 ENTRYPOINT ["/dist/openleadr-vtn-dist"]
-
-# # get the pre-built binary from builder so that we don't have to re-build every time
-# COPY --from=1 /app/openleadr-vtn/openleadr-vtn
-# COPY --from=1 --chown=nonroot:nonroot /app/openleadr-vtn/openleadr-vtn /home/nonroot/openleadr-vtn
-# RUN chmod 777 /home/nonroot/openleadr-vtn
-# RUN chmod +x /home/nonroot/openleadr-vtn
-# USER $user
-
-# WORKDIR /home/nonroot
-
-# ENTRYPOINT ["/app/openleadr-vtn"]
