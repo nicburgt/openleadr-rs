@@ -18,10 +18,10 @@ jobs:
           persist-credentials: false
       - name: Create version tag
         shell: bash
-        run: echo "tag=ghcr.io/openleadr/openleadr-rs:$(git show -s --format="%ct-%h" $GITHUB_SHA)" >> $GITHUB_ENV
+        run: echo "tag=ghcr.io/nicburgt/openleadr-rs:$(git show -s --format="%ct-%h" $GITHUB_SHA)" >> $GITHUB_ENV
       - name: Latest tag on main branch
         if: github.ref == 'refs/heads/main'
-        run: echo "tag_main=,ghcr.io/openleadr/openleadr-rs:latest" >> $GITHUB_ENV
+        run: echo "tag_main=,ghcr.io/nicburgt/openleadr-rs:latest" >> $GITHUB_ENV
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
