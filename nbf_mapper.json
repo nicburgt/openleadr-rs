@@ -1,0 +1,13 @@
+{
+    "name": "nbf mapper",
+    "protocol": "openid-connect",
+    "protocolMapper": "oidc-hardcoded-claim-mapper",
+    "config": {
+      "claim.value": "1745926210",
+      "claim.name": "nbf",
+      "jsonType.label": "long",
+      "userinfo.token.claim": "true",
+      "id.token.claim": "true",
+      "access.token.claim": "true"
+    }
+}

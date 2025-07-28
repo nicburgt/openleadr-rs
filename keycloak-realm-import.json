@@ -1,0 +1,92 @@
+{
+    "realm": "openadr-realm",
+    "enabled": true,
+    "clients": [
+        {
+          "clientId": "infiniot-ven",
+          "enabled": true,
+          "clientAuthenticatorType": "client-secret",
+          "secret": "infiniot-secret",
+          "protocol": "openid-connect",
+          "publicClient": false,
+          "directAccessGrantsEnabled": true,
+          "serviceAccountsEnabled": true,
+          "protocolMappers": [
+            {
+              "name": "custom roles mapper",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-hardcoded-claim-mapper",
+              "config": {
+                "claim.value": "[\n  \"read_all\", \"write_events\", \"write_programs\", \"write_vens\"]",
+                "claim.name": "roles",
+                "jsonType.label": "JSON",
+                "userinfo.token.claim": "true",
+                "id.token.claim": "true",
+                "access.token.claim": "true"
+              }
+            },
+            {
+              "name": "audience",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-audience-mapper",
+              "consentRequired": false,
+              "config": {
+                "included.client.audience": "http://localhost:8060",
+                "id.token.claim": "true",
+                "access.token.claim": "true"
+              }
+            }
+          ]
+        },
+        {
+          "clientId": "business-logic",
+          "enabled": true,
+          "clientAuthenticatorType": "client-secret",
+          "secret": "business-logic-secret",
+          "protocol": "openid-connect",
+          "publicClient": false,
+          "directAccessGrantsEnabled": true,
+          "serviceAccountsEnabled": true,
+          "protocolMappers": [
+            {
+              "name": "custom roles mapper",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-hardcoded-claim-mapper",
+              "config": {
+                "claim.value": "[\n  {\"role\": \"AnyBusiness\"},\n  {\"role\": \"VenManager\"},\n  {\"role\": \"VEN\", \"id\": \"0\"}\n]",
+                "claim.name": "roles",
+                "jsonType.label": "JSON",
+                "userinfo.token.claim": "true",
+                "id.token.claim": "true",
+                "access.token.claim": "true"
+              }
+            },
+            {
+              "name": "audience",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-audience-mapper",
+              "consentRequired": false,
+              "config": {
+                "included.client.audience": "http://localhost:8060",
+                "id.token.claim": "true",
+                "access.token.claim": "true"
+              }
+            },
+            {
+              "name": "nbf mapper",
+              "protocol": "openid-connect",
+              "protocolMapper": "oidc-hardcoded-claim-mapper",
+              "config": {
+                "claim.value": "1745926210",
+                "claim.name": "nbf",
+                "jsonType.label": "long",
+                "userinfo.token.claim": "true",
+                "id.token.claim": "true",
+                "access.token.claim": "true"
+              }
+            }
+          ]
+        }
+      ]
+  }
+  
