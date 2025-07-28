@@ -179,7 +179,7 @@ struct EdKeys {
 #[derive(Debug, serde::Serialize, serde::Deserialize)]
 pub(crate) struct Claims {
     exp: usize,
-    nbf: usize,
+    nbf: Option<usize>,
     pub(crate) sub: String,
     pub(crate) roles: Vec<AuthRole>,
 }
@@ -187,7 +187,7 @@ pub(crate) struct Claims {
 #[derive(Clone, Debug, serde::Serialize, serde::Deserialize)]
 struct InitialClaims {
     exp: usize,
-    nbf: usize,
+    nbf: Option<usize>,
     sub: String,
     #[serde(default)]
     // Allow the roles claim to either contain the internal roles structure of OpenLEADR
